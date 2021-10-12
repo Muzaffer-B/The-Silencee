@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Chracter_Movement : MonoBehaviour
 {
@@ -11,38 +13,63 @@ public class Chracter_Movement : MonoBehaviour
 
     public AudioSource sound;
     public AudioClip çevre;
+    public AudioClip intorsound;
+    public AudioClip baðýrma;
+
+    public Text healthtext;
+    public int health = 100;
+   
     void Start()
     {
         physic = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
 
         sound = GetComponent<AudioSource>();
-        sound.clip = çevre;
+        sound.clip = intorsound;
+        
         sound.Play();
+       
 
+        StartCoroutine(ambiance());
+        healthtext.text = health.ToString();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
-        
+        if (health <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
 
+        healthtext.text = health.ToString();
 
         if (Input.GetKey(KeyCode.W))
         {
             gameObject.transform.Translate(0, 0, Time.deltaTime * speed);
-            if (Input.GetKeyDown(KeyCode.W))
-            {
+            
+                anim.ResetTrigger("Idle");
+                anim.ResetTrigger("Run");
+                StartCoroutine(WalkTime());
                 anim.SetTrigger("Walk");
-               
-            }
+
+
             //  anim.SetTrigger("Idle");
 
 
 
         }
-        
+        else
+        {
+            anim.SetTrigger("Idle");
+        }
+
+        if (!sound.isPlaying)
+        {
+            sound.clip = çevre;
+            sound.Play();
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -75,14 +102,59 @@ public class Chracter_Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 30;
+            anim.ResetTrigger("Walk");
+            anim.ResetTrigger("Idle");
+            StartCoroutine(RunTime());
             anim.SetTrigger("Run");
+            
         }
         else
         {
             
-            speed = 5;
+            speed = 15;
                        
                     
         }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == "Lady")
+    //    {
+    //        Debug.Log("Lady Girdi");
+
+           
+    //        StartCoroutine(BagýrmaTime());
+    //        StartCoroutine(ambiance());
+
+    //        //sound.Stop();
+    //        //sound.clip = çevre;
+    //        //sound.Play();
+    //    }
+    //}
+
+    IEnumerator ambiance()
+    {
+        yield return new WaitForSeconds(4);
+        sound.clip = çevre;
+        sound.Play();
+    }
+
+    IEnumerator RunTime()
+    {
+        yield return new WaitForSeconds(2f);
+    }
+    IEnumerator WalkTime()
+    {
+        yield return new WaitForSeconds(2f);
+    }
+    //IEnumerator BagýrmaTime()
+    //{
+    //    sound.Stop();
+    //    yield return new WaitForSeconds(4);
+    //    Debug.Log("baðýrma girdi");
+        
+    //    sound.clip = baðýrma;
+    //    sound.Play();
+    //}
 }

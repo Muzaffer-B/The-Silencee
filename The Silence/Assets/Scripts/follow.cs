@@ -42,8 +42,8 @@ public class follow : MonoBehaviour
 
 
     public GameObject characterdestination;
-    
 
+    Chracter_Movement Character;
 
     void Start()
     {
@@ -51,7 +51,8 @@ public class follow : MonoBehaviour
        
         Zombianim = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
-
+        Character = GameObject.FindWithTag("Player").GetComponent<Chracter_Movement>();
+        
        
     }
 
@@ -67,6 +68,7 @@ public class follow : MonoBehaviour
         {
             agent.destination = target.position;
             agent.enabled = true;
+           // StartCoroutine(RunTime());
             Zombianim.SetTrigger("run");
             if (isplay)
             {
@@ -74,10 +76,15 @@ public class follow : MonoBehaviour
                sound.Stop();
                sound.clip = Follow;
                sound.Play();
-                isplay = false;
+               isplay = false;
             }
             
-            
+            if(distance <= 5)
+            {
+                
+                StartCoroutine(PunchTime());
+                return;
+            }
             
         }
         else
@@ -89,11 +96,15 @@ public class follow : MonoBehaviour
                 sound.Stop();
                 sound.clip = çevre;
                 sound.Play();
+                Zombianim.ResetTrigger("run");
+                Zombianim.ResetTrigger("punch");
                 Zombianim.SetTrigger("faraway");
                 isplay = true;
             }
             agent.enabled = false;
         }
+
+        
     }
 
 
@@ -136,5 +147,31 @@ public class follow : MonoBehaviour
         Zombianim.SetFloat("punch", 0);
 
         Destroy(gameObject);
+    }
+
+    IEnumerator PunchTime()
+    {
+        Debug.Log("Girdi");
+        Zombianim.ResetTrigger("run");
+        
+        Zombianim.SetTrigger("punch");
+        
+        yield return new WaitForSeconds(3);
+
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            Debug.Log("vurdu" + Character.health);
+            Character.health -= 20;
+            
+        }
+    }
+    IEnumerator RunTime()
+    {
+        yield return new WaitForSeconds(3f);
     }
 }

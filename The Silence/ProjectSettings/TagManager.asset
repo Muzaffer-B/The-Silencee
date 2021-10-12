@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - AI
+  - weapon
+  - Lady
+  - NPC
+  - StreetLight
   layers:
   - Default
   - TransparentFX

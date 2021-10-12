@@ -558,7 +558,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: With screams iin the middle of the night, Ahmet went out to look for what
+  m_Text: With screams in the middle of the night, Eitosh went out to look for what
     scared his family.
 --- !u!222 &1635445593
 CanvasRenderer:
@@ -638,7 +638,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "But when Ahmet returns to the campsite, he sees only the traces of his
+  m_Text: "But when Eitosh returns to the campsite, he sees only the traces of his
     daughter's bloody jacket and\n\t\t the story begins."
 --- !u!222 &1952876337
 CanvasRenderer:
