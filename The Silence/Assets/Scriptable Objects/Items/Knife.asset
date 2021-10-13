@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8834383ef880c1342b22e63634b68994, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
-  Id: 0
-  uiDisplay: {fileID: 0}
+  Id: 1
+  uiDisplay: {fileID: 21300000, guid: c45af10ef739a514f89d1bdde7f7ae3b, type: 3}
   type: 1
   description: Knife
-  buffs: []
   atkBonus: 10
   defenceBonus: 0

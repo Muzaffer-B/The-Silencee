@@ -18,7 +18,9 @@ public class Chracter_Movement : MonoBehaviour
 
     public Text healthtext;
     public int health = 100;
-   
+
+    public InventoryObject inventory;
+
     void Start()
     {
         physic = GetComponent<Rigidbody>();
@@ -32,6 +34,8 @@ public class Chracter_Movement : MonoBehaviour
 
         StartCoroutine(ambiance());
         healthtext.text = health.ToString();
+
+        inventory.Load();
     }
 
     // Update is called once per frame
@@ -153,8 +157,22 @@ public class Chracter_Movement : MonoBehaviour
     //    sound.Stop();
     //    yield return new WaitForSeconds(4);
     //    Debug.Log("baðýrma girdi");
-        
+
     //    sound.clip = baðýrma;
     //    sound.Play();
     //}
+
+    public void OnTriggerEnter(Collider other)
+    {
+        var item = other.GetComponent<GroundItem>();
+        if (item)
+        {
+            inventory.AddItem(new Item(item.item), 1);
+            Destroy(other.gameObject);
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Items.Clear();
+    }
 }

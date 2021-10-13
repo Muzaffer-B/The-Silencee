@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04152ef6276a1a947b0a7ae7f9b1676c, type: 3}
   m_Name: Meat
   m_EditorClassIdentifier: 
-  Id: 0
-  uiDisplay: {fileID: 0}
+  prefab: {fileID: 1751024479850796501, guid: 0f5fc0fa67e67054195cd8684e625083, type: 3}
   type: 0
   description: 
-  buffs: []
   restorehealtvalue: 15
